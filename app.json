@@ -1,0 +1,41 @@
+{
+  "expo": {
+    "name": "MuslimsDua",
+    "slug": "MuslimsDua",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon_XXHDPI.png",
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "android": {
+	    "package": "com.harits.muslimsdua",
+      "versionCode": 2,
+      "splash": {
+        "resizeMode": "contain",
+        "backgroundColor": "#ffffff",
+        "mdpi": "./assets/splashscreen_MDPI.png",
+        "hdpi": "./assets/splashscreen_HDPI.png",
+        "xhdpi": "./assets/splashscreen_XHDPI.png",
+        "xxhdpi": "./assets/splashscreen_XXHDPI.png"
+      },
+	    "permissions": []
+    },
+    "ios": {
+      "supportsTablet": true,
+      "splash": {
+        "resizeMode": "contain",
+        "backgroundColor": "#ffffff",
+        "image": "./assets/splashscreen_MDPI.png"
+      }
+    }
+  }
+}

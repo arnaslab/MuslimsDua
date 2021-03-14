@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Dimensions, View, Text, Share } from 'react-native';
+import { Dimensions, View, Text, Share, Linking } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { AreaView, OutlineButton, TransparentButton, TextIcon } from '../components';
 import { useDataContext, useSettingContext, toSentence, combineTitle, hexify } from '../utils/app';
 import Animated from 'react-native-reanimated';
-import { Linking } from 'react-native'
 import { InAppBrowser } from 'react-native-inappbrowser-reborn';
+import YoutubeView from './YoutubeView';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -51,7 +51,7 @@ const onShare = async (message) => {
   }
 }
 
-const DuaPage = ({ color, data, setLoved, goBack }) => {
+const DuaPage = ({ color, data, setLoved, goBack, setYoutubeId }) => {
   const [ view, setView ] = useState("dua");
   const { getTextByLang } = useSettingContext();
   const [ scrollY ] = useState(new Animated.Value(0));
@@ -122,12 +122,22 @@ const DuaPage = ({ color, data, setLoved, goBack }) => {
             size={30} 
             color="#ffffff"
           />
-          <TransparentButton 
-            onPress={() => openArticle(data.article, color)}
-            icon="WebPage" 
-            size={30} 
-            color="#ffffff"
-          />
+          {data.article && 
+            <TransparentButton 
+              onPress={() => openArticle(data.article, color)}
+              icon="WebPage" 
+              size={30} 
+              color="#ffffff"
+            />
+          }
+          {data.youtube &&
+            <TransparentButton 
+              onPress={() => setYoutubeId(data.youtube)}
+              icon="Video"
+              size={30} 
+              color="#ffffff"
+            />
+          }
           <TransparentButton 
             onPress={() => setLoved(!data.isLoved)}
             icon="Love" 
@@ -180,13 +190,13 @@ const DuaPage = ({ color, data, setLoved, goBack }) => {
           }}
         >
           <Animated.View style={{
-            position: 'absolute',
-            top: sticky,
+            // position: 'absolute', // for sticky icon
+            // top: sticky, // for sticky icon
             width: '100%',
             flexDirection: 'row',
             justifyContent: 'space-evenly',
-            // marginTop: 40,
-            // marginBottom: 20
+            marginTop: 40,
+            marginBottom: 20
           }}>
             <OutlineButton
               title={{ ind: 'Doa', eng: 'Dua'}}
@@ -220,7 +230,7 @@ const DuaPage = ({ color, data, setLoved, goBack }) => {
             />
           </Animated.View>
           <View style={{
-            paddingTop: 160,
+            // paddingTop: 160, // for sticky icon 
             paddingBottom: 10,
             paddingRight: 10,
             paddingLeft: 10
@@ -273,6 +283,8 @@ const Page = ({ navigation, route }) => {
   const { getColor } = useSettingContext();
   const { duas, setLoved } = useDataContext();
 
+  const [ youtubeId, setYoutubeId ] = useState(false);
+
   const data = duas
     .filter(dua => (!tagId || (dua.tags && dua.tags.includes(tagId))))
     .filter(dua => (!isLoved || dua.isLoved));
@@ -287,6 +299,7 @@ const Page = ({ navigation, route }) => {
             data={item} 
             goBack={navigation.goBack}
             setLoved={setLoved(item.id)}
+            setYoutubeId={setYoutubeId}
           />
         }
         keyExtractor={item => item.id}
@@ -296,6 +309,11 @@ const Page = ({ navigation, route }) => {
         initialNumToRender={1}
         initialScrollIndex={data.findIndex(dua => dua.id === duaId)}
         getItemLayout={(data, index) => ({ length: windowWidth, offset: windowWidth * index, index })}
+      />
+      <YoutubeView 
+        open={youtubeId ? true : false}
+        onClose={() => setYoutubeId(false)} 
+        videoId={youtubeId} 
       />
     </AreaView>
   );

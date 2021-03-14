@@ -65,7 +65,7 @@ export const useSettingContext = () => useMapContext(state => {
   setLanguage: value => dispatch(editSetting("language", value))
 }))
 
-export const toSentence = text => text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+export const toSentence = text => text && (text.charAt(0).toUpperCase() + text.slice(1).toLowerCase());
 
 export const parseLangTitle = (title) => 
   Object.keys(title).reduce((acc, key) => ({ ...acc, [key]: parseTitle(title[key]) }), {});

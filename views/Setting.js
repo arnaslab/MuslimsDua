@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Linking } from 'react-native';
 import { AreaView, TransparentButton, Icon } from '../components';
 import { useDataContext, useSettingContext } from '../utils/app';
+import { version, emailSupport } from '../utils/config';
 
 const getRgb = ({ r, g, b, a }) => `rgba(${r},${g},${b},${a || 1})`;
 
@@ -113,6 +114,29 @@ const Setting = ({ navigation }) => {
           </View>
         )}
       />
+      <TitleIcon title={lang === 'ind' ? "Tentang" : "About"} icon="Info" color="#3498eb" />
+      <View style={{ paddingLeft: 50, paddingTop: 10 }}>
+        <Text style={{ 
+          fontFamily: 'Acme-Regular',
+          fontSize: 15,
+          padding: 5
+        }}>
+          App version {version}
+        </Text>
+        <Text style={{ 
+          fontFamily: 'Acme-Regular',
+          fontSize: 15,
+          padding: 5
+        }}>
+          {"Contact: "}
+          <Text
+            style={{ color: 'blue' }} 
+            onPress={() => Linking.openURL(`mailto:${emailSupport}`)}
+          >
+            {emailSupport}
+          </Text>
+        </Text>
+      </View>
     </AreaView>
   )
 }

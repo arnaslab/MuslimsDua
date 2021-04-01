@@ -267,7 +267,7 @@ const DuaPage = ({ color, data, setLoved, goBack, setYoutubeId }) => {
                 fontSize: 25,
                 textAlign: 'center'
               }}>
-                {getTextByLang({ ind: "Dalam pengembangan Insyaallah", eng: "Under construction Insyaallah"})}
+                {getTextByLang({ ind: "Audio belum tersedia", eng: "Audio is not available"})}
               </Text>
             )}
           </View>

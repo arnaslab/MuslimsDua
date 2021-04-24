@@ -30,9 +30,11 @@ const reducer = (state = {
       return {
         ...state,
         status: state.status === STATUS_READY ? STATUS_UPDATED : STATUS_READY,
-        tags: action.tags,
-        duas: action.duas.map(dua => ({ ...dua, title: parseLangTitle(dua.title) })),
-        themes: action.themes
+        tags: action.tags.sort((a, b) => a.sort - b.sort),
+        duas: action.duas
+          .sort((a, b) => a.sort - b.sort)  
+          .map(dua => ({ ...dua, title: parseLangTitle(dua.title) })),
+        themes: action.themes.sort((a, b) => a.sort - b.sort)
       }
     case LOAD_DATA_ERROR:
       return {

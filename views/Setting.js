@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Linking } from 'react-native';
-import { AreaView, TransparentButton, Icon } from '../components';
+import Slider from "react-native-slider";
+import { AreaView, TransparentButton, Icon, ResizedText } from '../components';
 import { useDataContext, useSettingContext } from '../utils/app';
 import { version, emailSupport } from '../utils/config';
 
@@ -24,7 +25,13 @@ const TitleIcon = ({ title, icon, color }) => (
   </View>
 )
 
-const OptionList = ({ data, color, onPress, selectedId, IconComponent }) => (
+const OptionList = ({ 
+  data, 
+  color, 
+  onPress,
+  selectedId, 
+  IconComponent 
+}) => (
   <View style={{ 
     flexDirection: 'row', 
     justifyContent: 'center',
@@ -59,8 +66,13 @@ const OptionList = ({ data, color, onPress, selectedId, IconComponent }) => (
 
 const Setting = ({ navigation }) => {
   const { themes } = useDataContext();
-  const { theme, lang, setLanguage, setTheme } = useSettingContext();
-  
+  const { 
+    theme, setTheme,
+    lang, setLanguage,
+    fontSize, setFontSize 
+  } = useSettingContext();
+  const [ localFontSize, setLocalFontSize ] = useState(fontSize);
+
   return (
     <AreaView>
       <View style={{
@@ -87,6 +99,55 @@ const Setting = ({ navigation }) => {
           <Icon name={data.icon} />
         )}
       />
+      <TitleIcon title={lang === 'ind' ? "Ukuran Teks" : "Text Size"} icon="FontSize" color="#068f0f" />
+      <View style={{
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}>
+        <Slider
+          style={{
+            width: "70%", 
+            marginTop: 30
+          }}
+          onValueChange={value => setLocalFontSize(value)}
+          value={fontSize}
+          onSlidingComplete={value => setFontSize(value)}
+          minimumValue={0}
+          maximumValue={10}
+          minimumTrackTintColor="#068f0f"
+          maximumTrackTintColor="#000000"
+          thumbTintColor="#068f0f"
+        />
+      </View>
+      <View style={{
+        marginHorizontal: 20,
+        marginBottom: 20,
+        height: 150,
+        justifyContent: 'center'
+      }}>
+        <ResizedText 
+          type="arabic"
+          style={{ textAlign: 'center' }}
+          ratio={localFontSize}
+        >
+          الدعاء سلاح المؤمن
+        </ResizedText>
+        <ResizedText 
+          type="latin"
+          style={{ textAlign: 'center' }}
+          ratio={localFontSize}
+          size="small"
+        >
+          Ad du'au silahul mu'min
+        </ResizedText>
+        <ResizedText 
+          type="latin"
+          style={{ textAlign: 'center' }}
+          ratio={localFontSize}
+        >
+          {lang === 'ind' ? 'Doa adalah senjata orang beriman' : 'Dua is the weapon of the believer'}
+        </ResizedText>
+      </View>
       <TitleIcon title={lang === 'ind' ? "Tema" : "Theme"} icon="Theme" color="#e8b235" />
       <OptionList 
         data={themes}
@@ -121,14 +182,14 @@ const Setting = ({ navigation }) => {
           fontSize: 15,
           padding: 5
         }}>
-          App version {version}
+          {lang === 'ind' ? "Versi app" : "App version"} {version}
         </Text>
         <Text style={{ 
           fontFamily: 'Acme-Regular',
           fontSize: 15,
           padding: 5
         }}>
-          {"Contact: "}
+          {lang === 'ind' ? "Kontak: " : "Contact: "}
           <Text
             style={{ color: 'blue' }} 
             onPress={() => Linking.openURL(`mailto:${emailSupport}`)}

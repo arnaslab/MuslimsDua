@@ -50,19 +50,25 @@ const getColor = (colorList, id, opacity = 1) =>  {
 
 export const useSettingContext = () => useMapContext(state => {
   const { themes } = state;
-  const { theme, language } = state.setting;
+  const { 
+    theme, 
+    language : lang = "ind", 
+    fontSize = 5
+  } = state.setting;
   const activeTheme = themes ? (theme ? themes.find(item => (item.id === theme)) : themes[0]) : {};
   return {
     theme,
     bgColor: activeTheme.bgColor || "#ffffff",
     getColor: (id, opacity) => getColor(activeTheme.colors, id, opacity),
-    lang: language || 'ind',
-    getTextByLang: (data) => data[language || 'ind']
+    lang,
+    getTextByLang: (data) => data[lang],
+    fontSize
   }
 }, dispatch => ({
   loadSetting: () => dispatch(loadSetting()),
   setTheme: value => dispatch(editSetting("theme", value)),
-  setLanguage: value => dispatch(editSetting("language", value))
+  setLanguage: value => dispatch(editSetting("language", value)),
+  setFontSize: value => dispatch(editSetting("fontSize", value))
 }))
 
 export const toSentence = text => text && (text.charAt(0).toUpperCase() + text.slice(1).toLowerCase());

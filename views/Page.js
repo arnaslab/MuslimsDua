@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Dimensions, View, Text, Share, Linking } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
-import { AreaView, OutlineButton, TransparentButton, TextIcon } from '../components';
+import { AreaView, OutlineButton, TransparentButton, TextIcon, ResizedText } from '../components';
 import { useDataContext, useSettingContext, toSentence, combineTitle, hexify } from '../utils/app';
 import Animated from 'react-native-reanimated';
 import { InAppBrowser } from 'react-native-inappbrowser-reborn';
@@ -237,30 +237,30 @@ const DuaPage = ({ color, data, setLoved, goBack, setYoutubeId }) => {
           }}>
             {view === 'dua' ? (
               <>
-                <Text style={{
-                  fontFamily: 'Lateef-Regular',
-                  fontSize: 50,
-                  textAlign: 'center'
-                }}>
+                <ResizedText 
+                  type="arabic"
+                  style={{ textAlign: 'center' }}
+                >
                   {data.dua}
-                </Text>
-                <Text style={{
-                  marginTop: 10,
-                  fontFamily: 'Acme-Regular',
-                  fontSize: 20,
-                  textAlign: 'center'
-                }}>
+                </ResizedText>
+                <ResizedText 
+                  type="latin"
+                  size="small"
+                  style={{
+                    marginTop: 10,
+                    textAlign: 'center'
+                  }}
+                >
                   {toSentence(data.transliteration)}
-                </Text>
+                </ResizedText>
               </>
             ) : view === 'trans' ? (
-              <Text style={{
-                fontFamily: 'Acme-Regular',
-                fontSize: 25,
-                textAlign: 'center'
-              }}>
+              <ResizedText 
+                type="latin"
+                style={{ textAlign: 'center' }}
+              >
                 {data.translation}
-              </Text>
+              </ResizedText>
             ) : (
               <Text style={{
                 fontFamily: 'Acme-Regular',

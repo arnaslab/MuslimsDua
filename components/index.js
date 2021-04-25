@@ -3,6 +3,7 @@ import Icon from './Icon';
 import TransparentButton from './TransparentButton';
 import OutlineButton from './OutlineButton';
 import TextIcon from './TextIcon';
+import ResizedText from './ResizedText';
 import { 
     AnimatedFlatList,
     AnimatedText,
@@ -15,6 +16,7 @@ export {
     TransparentButton,
     OutlineButton,
     TextIcon,
+    ResizedText,
     AnimatedFlatList,
     AnimatedText,
     AnimatedTextIcon

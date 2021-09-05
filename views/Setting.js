@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Linking } from 'react-native';
 import Slider from "react-native-slider";
-import { AreaView, TransparentButton, Icon, ResizedText } from '../components';
+import { AreaView, TransparentButton, Icon, ControlizedText } from '../components';
 import { useDataContext, useSettingContext } from '../utils/app';
 import { version, emailSupport } from '../utils/config';
 
@@ -52,12 +52,11 @@ const OptionList = ({
           })
         }}>
           <IconComponent data={item} />
-          <Text style={{ 
-            fontFamily: 'Acme-Regular',
+          <ControlizedText style={{
             fontSize: 15
           }}>
             {item.title.toLowerCase()}
-          </Text>
+          </ControlizedText>
         </View>
       </TouchableOpacity>
     ))}
@@ -73,8 +72,12 @@ const Setting = ({ navigation }) => {
   } = useSettingContext();
   const [ localFontSize, setLocalFontSize ] = useState(fontSize);
 
+  console.log("themes", themes);
+
   return (
-    <AreaView>
+    <AreaView 
+      // color="#000000"
+    >
       <View style={{
         padding: 10, 
         alignItems: 'flex-end' 
@@ -125,28 +128,28 @@ const Setting = ({ navigation }) => {
         height: 150,
         justifyContent: 'center'
       }}>
-        <ResizedText 
+        <ControlizedText 
           type="arabic"
           style={{ textAlign: 'center' }}
           ratio={localFontSize}
         >
           الدعاء سلاح المؤمن
-        </ResizedText>
-        <ResizedText 
+        </ControlizedText>
+        <ControlizedText 
           type="latin"
           style={{ textAlign: 'center' }}
           ratio={localFontSize}
           size="small"
         >
           Ad du'au silahul mu'min
-        </ResizedText>
-        <ResizedText 
+        </ControlizedText>
+        <ControlizedText 
           type="latin"
           style={{ textAlign: 'center' }}
           ratio={localFontSize}
         >
           {lang === 'ind' ? 'Doa adalah senjata orang beriman' : 'Dua is the weapon of the believer'}
-        </ResizedText>
+        </ControlizedText>
       </View>
       <TitleIcon title={lang === 'ind' ? "Tema" : "Theme"} icon="Theme" color="#e8b235" />
       <OptionList 

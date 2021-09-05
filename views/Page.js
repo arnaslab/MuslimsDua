@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Dimensions, View, Text, Share, Linking } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
-import { AreaView, OutlineButton, TransparentButton, TextIcon, ResizedText } from '../components';
+import { AreaView, OutlineButton, TransparentButton, TextIcon, ControlizedText } from '../components';
 import { useDataContext, useSettingContext, toSentence, combineTitle, hexify } from '../utils/app';
 import Animated from 'react-native-reanimated';
 import { InAppBrowser } from 'react-native-inappbrowser-reborn';
@@ -221,7 +221,7 @@ const DuaPage = ({ color, data, setLoved, goBack, setYoutubeId }) => {
             <OutlineButton
               title={{ ind: "Suara", eng: "Audio" }}
               color={color}
-              icon="TransEn"
+              icon="Video"
               onPress={() => setView("audio")}
               isActive={view === 'audio'}
               size={60}
@@ -237,13 +237,13 @@ const DuaPage = ({ color, data, setLoved, goBack, setYoutubeId }) => {
           }}>
             {view === 'dua' ? (
               <>
-                <ResizedText 
+                <ControlizedText 
                   type="arabic"
                   style={{ textAlign: 'center' }}
                 >
                   {data.dua}
-                </ResizedText>
-                <ResizedText 
+                </ControlizedText>
+                <ControlizedText 
                   type="latin"
                   size="small"
                   style={{
@@ -252,15 +252,15 @@ const DuaPage = ({ color, data, setLoved, goBack, setYoutubeId }) => {
                   }}
                 >
                   {toSentence(data.transliteration)}
-                </ResizedText>
+                </ControlizedText>
               </>
             ) : view === 'trans' ? (
-              <ResizedText 
+              <ControlizedText 
                 type="latin"
                 style={{ textAlign: 'center' }}
               >
                 {data.translation}
-              </ResizedText>
+              </ControlizedText>
             ) : (
               <Text style={{
                 fontFamily: 'Acme-Regular',

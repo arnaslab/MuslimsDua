@@ -1,4 +1,5 @@
 import { AsyncStorage } from 'react-native';
+import { baseUrl } from './secret';
 
 export const clearStorage = () => AsyncStorage.clear();
 
@@ -12,7 +13,7 @@ const mergeStorage = (key, value) => AsyncStorage.mergeItem(key, JSON.stringify(
   .then(() => console.log(`Successfuly merge ${key}`));
 
 const checkUpdate = (timestamp) =>
-  fetch(`https://us-central1-muslimsdua.cloudfunctions.net/checkUpdate?timestamp=${timestamp}`)
+  fetch(`${baseUrl}/checkUpdate?timestamp=${timestamp}`)
   .then(response => response.json());
 
 export const loadData = async () => {

@@ -2,6 +2,7 @@ import React from 'react';
 import { TransparentButton } from '../components';
 import YouTube from 'react-native-youtube';
 import { View } from "react-native";
+import { googleApiKey } from 'utils/secret';
 
 // const windowWidth = Dimensions.get('window').width;
 
@@ -28,7 +29,7 @@ const YoutubeView = ({ videoId, open = false, onClose }) => {
                     <TransparentButton icon="Close" size={15} onPress={onClose} color="#ffffff" />
                 </View>
                 <YouTube
-                    apiKey="AIzaSyCODk-R0PbuPBPL0kF4Nm_dqysJde1C9Ig"
+                    apiKey={googleApiKey}
                     videoId={videoId} // The YouTube video ID
                     play // control playback of video with true/false
                     controls={2}

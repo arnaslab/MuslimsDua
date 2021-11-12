@@ -2,7 +2,7 @@ import React from 'react';
 import { TransparentButton } from '../components';
 import YouTube from 'react-native-youtube';
 import { View } from "react-native";
-import { googleApiKey } from 'utils/secret';
+import { googleApiKey } from '../utils/secret';
 
 // const windowWidth = Dimensions.get('window').width;
 

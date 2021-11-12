@@ -122,7 +122,7 @@ const DuaPage = ({ color, data, setLoved, goBack, setYoutubeId }) => {
             size={30} 
             color="#ffffff"
           />
-          {data.article && 
+          {!!data.article && 
             <TransparentButton 
               onPress={() => openArticle(data.article, color)}
               icon="WebPage" 
@@ -130,7 +130,7 @@ const DuaPage = ({ color, data, setLoved, goBack, setYoutubeId }) => {
               color="#ffffff"
             />
           }
-          {data.youtube &&
+          {!!data.youtube &&
             <TransparentButton 
               onPress={() => setYoutubeId(data.youtube)}
               icon="Video"
